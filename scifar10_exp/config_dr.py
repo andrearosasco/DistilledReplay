@@ -2,7 +2,7 @@ import importlib
 import os
 from collections import OrderedDict
 
-import torch
+
 import numpy as np
 from PIL import Image
 from torchvision.transforms import transforms
@@ -10,32 +10,22 @@ from torchvision.transforms import transforms
 model_config = OrderedDict([
     ('arch', 'lenet5'),
     ('n_classes', 10),
-    # Next entries are required for using the Wide-ResNet
-    # ('depth', 28),
-    # ('base_channels', 16),
-    # ('widening_factor', 10),
-    # ('drop_rate', 0.0),
-    ('input_shape', (1, 28, 28)),
+    ('input_shape', (3, 32, 32)),
 ])
 
 data_config = OrderedDict([
-    ('dataset', 'SplitFashionMNIST'),
+    ('dataset', 'SplitCIFAR10'),
     ('valid', 0.0),
     ('num_workers', 4),
     ('train_transform', transforms.Compose([
-        lambda x: np.array(x).reshape((1, 28, 28)),
-        lambda x: np.pad(x, ((0, 0), (2, 2), (2, 2)), mode='minimum'),  # Padding is only required by LeNet
-        lambda x: torch.FloatTensor(x),
-        lambda x: x / 255.0,
-        transforms.Normalize(np.array([0.1307]), np.array([0.3081]))
-    ])),
+        lambda x: Image.fromarray(x.reshape((3, 32, 32)).transpose((1, 2, 0))),
+        transforms.ToTensor(),
+        transforms.Normalize(np.array([0.5]), np.array([0.5]))])),
     ('test_transform', transforms.Compose([
-        lambda x: np.array(x).reshape((1, 28, 28)),
-        lambda x: np.pad(x, ((0, 0), (2, 2), (2, 2)), mode='minimum'),  # Padding is only required by LeNet
-        lambda x: torch.FloatTensor(x),
-        lambda x: x / 255.0,
-        transforms.Normalize(np.array([0.1307]), np.array([0.3081]))
-    ])),
+        lambda x: Image.fromarray(x.reshape((3, 32, 32)).transpose((1, 2, 0))),
+        transforms.ToTensor(),
+        transforms.Normalize(np.array([0.5]), np.array([0.5]))
+    ]))
 ])
 
 
@@ -54,14 +44,14 @@ log_config = OrderedDict([
 ])
 
 param_config = OrderedDict([
-    ('no_steps', 80),  # Training epoch performed by the model on the distilled dataset
-    ('step', 'minibatch'),
-    ('meta_lr', 0.1),  # Learning rate for distilling images
+    ('no_steps', 40),  # Training epoch performed by the model on the distilled dataset
+    ('steps', 'minibatch'),  # epoch or minibatch('meta_lr', 0.1),  # Learning rate for distilling images
+    ('meta_lr', 0.1),
     ('model_lr', 0.05),  # Base learning rate for the model
     ('lr_lr', 0.0),  # Learning rate for the lrs of the model at each optimization step
-    ('outer_steps', 70),  # Distillation epochs
-    ('inner_steps', 30),  # Optimization steps of the model
-    ('batch_size', 128),  # Minibatch size used during distillation
+    ('outer_steps', 80),  # Distillation epochs
+    ('inner_steps', 20),  # Optimization steps of the model
+    ('batch_size', 1024),  # Minibatch size used during distillation
     ('distill_batch_size', 128),
     ('buffer_size', 1),  # Number of examples per class kept in the buffer
 ])
@@ -75,6 +65,6 @@ config = OrderedDict([
 ])
 
 if __name__ == '__main__':
-    os.environ['CUDA_VISIBLE_DEVICES'] = '2'
+    os.environ['CUDA_VISIBLE_DEVICES'] = '3'
     experiment = importlib.import_module(config['run_config']['experiment'])
     experiment.run(config)

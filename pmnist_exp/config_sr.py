@@ -3,19 +3,12 @@ import os
 from collections import OrderedDict
 
 import torch
-import numpy as np
 from torchvision.transforms import transforms
 
 model_config = OrderedDict([
     ('arch', 'mlp2'),
     ('n_classes', 10),
     ('dropout', 0.5)
-    # Next entries are required for using the Wide-ResNet
-    # ('depth', 28),
-    # ('base_channels', 16),
-    # ('widening_factor', 10),
-    # ('drop_rate', 0.0),
-    # ('input_shape', (1, 28, 28)),
 ])
 
 data_config = OrderedDict([

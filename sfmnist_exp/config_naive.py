@@ -4,17 +4,11 @@ from collections import OrderedDict
 
 import torch
 import numpy as np
-from PIL import Image
 from torchvision.transforms import transforms
 
 model_config = OrderedDict([
     ('arch', 'lenet5'),
     ('n_classes', 10),
-    # Next entries are required for using the Wide-ResNet
-    # ('depth', 28),
-    # ('base_channels', 16),
-    # ('widening_factor', 10),
-    # ('drop_rate', 0.0),
     ('input_shape', (1, 28, 28)),
 ])
 
@@ -42,13 +36,13 @@ data_config = OrderedDict([
 run_config = OrderedDict([
     ('experiment', 'run'),  # This configuration will be executed by run.py
     ('device', 'cuda'),
-    ('tasks', [[8, 9], [7, 6], [5, 4], [3, 2], [1, 0]]), # , [4, 5], [6, 7], [8, 9]
+    ('tasks', [[9, 8], [7, 6], [5, 4], [3, 2], [1, 0]]), # , [4, 5], [6, 7], [8, 9]
     ('seed', 1234),
 ])
 
 log_config = OrderedDict([
     ('wandb', True),
-    ('wandb_name', 'joint.rev'),
+    ('wandb_name', 'naive'),
     ('print', True),
     ('images', True),  # Save the distilled images
 ])
@@ -63,7 +57,7 @@ param_config = OrderedDict([
     ('inner_steps', 0),  # Optimization steps of the model
     ('batch_size', 128),  # Minibatch size used during distillation
     ('distill_batch_size', 128),
-    ('buffer_size', -1),  # Number of examples per class kept in the buffer
+    ('buffer_size', 0),  # Number of examples per class kept in the buffer
 ])
 
 config = OrderedDict([
@@ -75,6 +69,6 @@ config = OrderedDict([
 ])
 
 if __name__ == '__main__':
-    os.environ['CUDA_VISIBLE_DEVICES'] = '1'
+    os.environ['CUDA_VISIBLE_DEVICES'] = '2'
     experiment = importlib.import_module(config['run_config']['experiment'])
     experiment.run(config)

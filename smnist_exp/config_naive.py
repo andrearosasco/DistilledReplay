@@ -4,17 +4,11 @@ from collections import OrderedDict
 
 import torch
 import numpy as np
-from PIL import Image
 from torchvision.transforms import transforms
 
 model_config = OrderedDict([
     ('arch', 'lenet5'),
     ('n_classes', 10),
-    # Next entries are required for using the Wide-ResNet
-    # ('depth', 28),
-    # ('base_channels', 16),
-    # ('widening_factor', 10),
-    # ('drop_rate', 0.0),
     ('input_shape', (1, 28, 28)),
 ])
 

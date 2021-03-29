@@ -10,11 +10,6 @@ from torchvision.transforms import transforms
 model_config = OrderedDict([
     ('arch', 'lenet5'),
     ('n_classes', 10),
-    # # Next entries are required for using the Wide-ResNet
-    # ('depth', 28),
-    # ('base_channels', 16),
-    # ('widening_factor', 10),
-    # ('drop_rate', 0.0),
     ('input_shape', (3, 32, 32)),
 ])
 
@@ -24,8 +19,6 @@ data_config = OrderedDict([
     ('num_workers', 4),
     ('train_transform', transforms.Compose([
         lambda x: Image.fromarray(x.reshape((3, 32, 32)).transpose((1, 2, 0))),
-        # transforms.RandomCrop(32, padding=4),
-        # transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
         transforms.Normalize(np.array([0.5]), np.array([0.5]))])),
     ('test_transform', transforms.Compose([
@@ -45,7 +38,7 @@ run_config = OrderedDict([
 
 log_config = OrderedDict([
     ('wandb', True),
-    ('wandb_name', 'naive'),
+    ('wandb_name', 'SR'),
     ('print', True),
     ('images', True),  # Save the distilled images
 ])
@@ -60,7 +53,7 @@ param_config = OrderedDict([
     ('inner_steps', 0),  # Optimization steps of the model
     ('batch_size', 1024),  # Minibatch size used during distillation
     ('distill_batch_size', 128),
-    ('buffer_size', 0),  # Number of examples per class kept in the buffer
+    ('buffer_size', 1),  # Number of examples per class kept in the buffer
 ])
 
 config = OrderedDict([

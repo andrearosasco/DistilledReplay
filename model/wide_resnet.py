@@ -131,11 +131,7 @@ class Model(nn.Module):
                 torch.zeros(*input_shape)).view(-1).shape[0]
 
         self.fc = nn.Linear(self.feature_size, n_classes)
-        # self.fc2 = nn.Linear(2000, 2000)
-        # self.fc3 = nn.Linear(2000, n_classes)
 
-        # initialize weights
-        #self.apply(initialize_weights)
 
     def _make_stage(self, in_channels, out_channels, n_blocks, block, stride,
                     drop_rate):
@@ -182,10 +178,7 @@ class Model(nn.Module):
 
         x = x.view(x.size(0), -1)
         x = self.fc(x)
-        # x = F.dropout(x, p=0.5, training=self.training, inplace=False)
-        # x = self.fc2(x)
-        # x = F.dropout(x, p=0.5, training=self.training, inplace=False)
-        # x = self.fc3(x)
+
         return x
 
     def freeze(self):
@@ -194,8 +187,3 @@ class Model(nn.Module):
     def unfreeze(self):
         self.conv_freezed = False
 
-    # def apply(self, fn):
-    #     self.stage3.apply(fn)
-    #     self.bn.apply(fn)
-    #     self.fc.apply(fn)
-    #     return self
