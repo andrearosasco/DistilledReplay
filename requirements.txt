@@ -5,3 +5,4 @@ requests>=2.21.0
 python-mnist>=0.7
 higher
 wandb
+continual-flame
