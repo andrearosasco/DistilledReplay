@@ -1,3 +1,12 @@
+# Distilled Replay
+[![LICENSE](https://img.shields.io/badge/license-MIT-green?style=flat-square)](https://github.com/andrew-r96/DistilledReplay/blob/main/LICENSE)
+[![Python](https://img.shields.io/badge/python-3.8-blue.svg?style=flat-square)](https://www.python.org/) 
+
+### Paper
+- Distilled Replay: Overcaming Forgetting through Synthetic Samples,
+2021. \[[PDF](https://arxiv.org/pdf/2103.15851.pdf)\]
+
+
 ### Setup & Execution
 - Install the packages listed in requirements.txt
 
