@@ -1,6 +1,5 @@
 ## Setup
     Install the packages listed in requirements.txt
-    <!-- Add the project directory to PYTHONPATH (on linux: export PYTHONPATH="${PYTHONPATH}:/path/to/dir" -->
 
 ## Execution
     Run the desired configuration file
