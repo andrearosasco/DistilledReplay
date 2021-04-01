@@ -3,8 +3,7 @@
 [![Python](https://img.shields.io/badge/python-3.8-blue.svg?style=flat-square)](https://www.python.org/) 
 
 ### Paper
-- Distilled Replay: Overcaming Forgetting through Synthetic Samples,
-2021. \[[PDF](https://arxiv.org/pdf/2103.15851.pdf)\]
+- Distilled Replay: Overcaming Forgetting through Synthetic Samples, 2021. \[[PDF](https://arxiv.org/pdf/2103.15851.pdf)\]
 
 
 ### Setup & Execution
